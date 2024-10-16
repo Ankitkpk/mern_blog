@@ -11,7 +11,7 @@ import path from 'path';
 dotenv.config();
 
 mongoose
-  .connect(process.env.MONGO)
+  .connect('mongodb+srv://ankitkarapurkar444:uicrrmzSFW925NJc@cluster0.ywd9w.mongodb.net/TestforERP?retryWrites=true&w=majority&appName=Cluster0')
   .then(() => {
     console.log('MongoDb is connected');
   })
@@ -40,6 +40,19 @@ app.use(express.static(path.join(__dirname, '/client/dist')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 });
+
+/*
+
+app.use(cors({
+  origin: "*",
+  optionsSuccessStatus: 200, // Allow all origins (for development purposes; adjust for production)
+}));
+
+
+
+*/
+
+
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
