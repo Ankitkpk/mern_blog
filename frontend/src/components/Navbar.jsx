@@ -10,6 +10,7 @@ const Navbar = () => {
   const {setShowRecruiter}=useContext(AppContext)
 
   return (
+    <div className='container 2xl:px-15 mx-auto'>
     <div className="flex flex-wrap items-center justify-between p-4">
       <img src={assets.logo} alt="logo" className="w-24 sm:w-32 mr-4" />
       {
@@ -27,6 +28,7 @@ const Navbar = () => {
           </button>
         </div>
       }
+    </div>
     </div>
   );
 };

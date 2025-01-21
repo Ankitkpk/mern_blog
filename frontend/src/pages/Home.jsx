@@ -7,7 +7,7 @@ import AppDownload from '../components/AppDownload'
 const Home = () => {
   return (
     <div>
-      
+      <Navbar/>
       <Hero/>
       <JobListing/>
       <AppDownload/>
