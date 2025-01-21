@@ -9,13 +9,11 @@ const clerkWebhooks = async (req, res) => {
     const wook = new Webhook(process.env.CLERK_WEBHOOK_SECRET_KEY);
 
     // Verify the headers
-    const payload = JSON.stringify(req.body); 
-    const headers = {
+    await wook.verify(JSON.stringify(req.body),{
       "svix-id": req.headers["svix-id"],
       "svix-timestamp": req.headers["svix-timestamp"],
       "svix-signature": req.headers["svix-signature"],
-    };
-    wook.verify(payload, headers);
+    });
 
     const { data, type } = req.body;
 
@@ -26,34 +24,34 @@ const clerkWebhooks = async (req, res) => {
         const userData = {
           _id: data.id,
           email: data.email_addresses[0]?.email_address, 
-          name: `${data.first_name} ${data.last_name}`,
+          name: data.first_name + " " + data.last_name,
           image: data.image_url,
           resume: "",
         };
         await User.create(userData);
-        res.json({ message: "User created successfully" });
+        res.json({});
         break;
       }
 
       case "user.updated": {
         const userData = {
           email: data.email_addresses[0]?.email_address,
-          name: `${data.first_name} ${data.last_name}`,
+          name: data.first_name + " " + data.last_name,
           image: data.image_url,
         };
         await User.findByIdAndUpdate(data.id, userData, { new: true });
-        res.json({ message: "User updated successfully" });
+        res.json({});
         break;
       }
 
       case "user.deleted": {
         await User.findByIdAndDelete(data.id);
-        res.json({ message: "User deleted successfully" });
+        res.json({ });
         break;
       }
 
       default: {
-        res.status(400).json({ message: "Unhandled event type" });
+        res.json({});
         break;
       }
     }
