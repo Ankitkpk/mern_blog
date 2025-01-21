@@ -1,9 +1,10 @@
 import bcryptjs from 'bcryptjs';
-import User from '../models/user.model.js';
+import User from '../models/userModel.js';
 import { Webhook } from 'svix'; 
 
 // API function to handle Clerk webhooks
 const clerkWebhooks = async (req, res) => {
+  console.log("hi");
   try {
     // Create a new Svix Webhook instance
     const wook = new Webhook(process.env.CLERK_WEBHOOK_SECRET_KEY);

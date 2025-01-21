@@ -19,7 +19,7 @@ app.get("/debug-sentry", function mainHandler(req, res) {
     throw new Error("My first Sentry error!");
   });
 //route for webhooks//
-app.post("/webhooks",clerkWebhooks);
+app.post("/webhooks", clerkWebhooks);
 connectDB();
 
 const PORT = process.env.PORT || 3000; 
