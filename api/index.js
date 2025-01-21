@@ -5,6 +5,7 @@ import cors from 'cors';
 import connectDB from './config/mongodb.js';
 import { config } from 'dotenv'; 
 import * as Sentry from "@sentry/node";
+import clerkWebhooks from './controllers/WebhookController.js';
 config();
 const app = express();
 
@@ -17,6 +18,8 @@ app.get('/', (req, res) => {
 app.get("/debug-sentry", function mainHandler(req, res) {
     throw new Error("My first Sentry error!");
   });
+//route for webhooks//
+app.post("/webhooks",clerkWebhooks);
 connectDB();
 
 const PORT = process.env.PORT || 3000; 
