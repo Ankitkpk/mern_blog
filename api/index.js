@@ -5,7 +5,7 @@ import cors from 'cors';
 import connectDB from './config/mongodb.js';
 import { config } from 'dotenv'; 
 import * as Sentry from "@sentry/node";
-import clerkWebhooks from './controllers/WebhookController.js';
+import {clerkWebhooks} from './controllers/Webhooks.js';
 config();
 const app = express();
 
