@@ -41,15 +41,23 @@ export const sendMessage = async (req,res) => {
         console.log(error);
     }
 }
-export const getMessage = async (req,res) => {
+
+export const getMessage = async (req, res) => {
     try {
         const receiverId = req.params.id;
         const senderId = req.id;
+
         const conversation = await Conversation.findOne({
-            participants:{$all : [senderId, receiverId]}
-        }).populate("messages"); 
-        return res.status(200).json(conversation?.messages);
+            participants: { $all: [senderId, receiverId] }
+        }).populate("messages");
+
+        if (!conversation) {
+            return res.status(404).json({ message: "No conversation found" });
+        }
+
+        return res.status(200).json(conversation.messages);
     } catch (error) {
-        console.log(error);
+        console.error("Error fetching messages:", error);
+        return res.status(500).json({ message: "Server error", error: error.message });
     }
-}
+};
